@@ -6,10 +6,11 @@
     <fragment
         android:id="@+id/optionsAdmin"
         android:layout_width="200dp"
-        android:layout_height="match_parent"/>
-    <fragment
+        android:layout_height="match_parent"
+        class="mx.iteso.msc.rodriguez.roberto.mylibrary.AdminOptions"/>
+    <LinearLayout
         android:id="@+id/actionAdmin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="mx.iteso.msc.rodriguez.roberto.mylibrary.AdminAdd"/>
+        android:orientation="horizontal"/>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package mx.iteso.msc.rodriguez.roberto.mylibrary;
 
 import android.app.Fragment;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -12,10 +13,17 @@ public class AdminAction extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_admin);
+        // En landscape el cambio de fragment sera hecho en la clase AdminOptions
+        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE) {
+            finish();
+            return;
+        }
+        // En portrait se cambia el fragment que se despliega en pantalla
         Fragment fragment;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String option = extras.getString("action");
+            assert option != null;
             switch (option) {
                 case "add":
                     fragment = AdminAdd.newInstance();
@@ -27,7 +35,7 @@ public class AdminAction extends AppCompatActivity {
                     fragment = AdminDelete.newInstance();
                     break;
             }
-            getFragmentManager().beginTransaction().add(R.id.actionAdmin, fragment).commit();
+            getFragmentManager().beginTransaction().replace(R.id.actionAdmin, fragment).commit();
         }
     }
 }
