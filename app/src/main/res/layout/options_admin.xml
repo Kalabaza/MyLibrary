@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal|center_vertical">
+    <Button
+        android:id="@+id/optionsAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:width="@dimen/button_big_width"
+        android:textSize="18sp"
+        android:text="@string/admin_add"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    <Button
+        android:id="@+id/optionsEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:width="@dimen/button_big_width"
+        android:textSize="18sp"
+        android:text="@string/admin_edit"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    <Button
+        android:id="@+id/optionsDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:width="@dimen/button_big_width"
+        android:textSize="18sp"
+        android:text="@string/admin_delete"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+</LinearLayout>

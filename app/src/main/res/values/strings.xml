@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">My Library</string>
+    <!-- Texto para los botones -->
+    <string name="main_authors">Autores</string>
+    <string name="main_books">Libros</string>
+    <string name="main_admin">Administrar</string>
+    <string name="admin_add">Agregar</string>
+    <string name="admin_edit">Editar</string>
+    <string name="admin_delete">Borrar</string>
+    <string name="add_insert">Insertar</string>
+    <!-- Texto para agregar un nuevo libro -->
+    <string name="book_add">Agregar un nuevo libro</string>
+    <string name="book_name">Nombre del Libro</string>
+    <string name="book_author">Nombre del Autor</string>
+    <string name="book_editorial">Nombre de la Editorial</string>
+    <string name="book_date">Año de publicación</string>
+    <string name="book_country">País de publicación</string>
+    <string name="book_language">Lenguaje del Libro</string>
+    <string name="book_message_ok">¡Libro agregado correctamente!</string>
+    <string name="book_message_error">No se pudo agregar el libro</string>
+</resources>
