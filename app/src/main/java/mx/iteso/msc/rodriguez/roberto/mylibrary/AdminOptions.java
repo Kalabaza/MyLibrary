@@ -2,6 +2,7 @@ package mx.iteso.msc.rodriguez.roberto.mylibrary;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,19 +20,38 @@ public class AdminOptions extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Intent admin = new Intent(getActivity().getApplicationContext(), AdminAction.class);
-        switch (view.getId()) {
-            case R.id.optionsAdd:
-                admin.putExtra("action", "add");
-                break;
-            case R.id.optionsEdit:
-                admin.putExtra("action", "edit");
-                break;
-            case R.id.optionsDelete:
-                admin.putExtra("action", "delete");
-                break;
+        // En landscape se debe cambiar el fragment que se despliega en pantalla
+        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE) {
+            Fragment fragment;
+            switch (view.getId()) {
+                case R.id.optionsAdd:
+                    fragment = AdminAdd.newInstance();
+                    break;
+                case R.id.optionsEdit:
+                    fragment = AdminEdit.newInstance();
+                    break;
+                default: // R.id.optionsDelete:
+                    fragment = AdminDelete.newInstance();
+                    break;
+            }
+            getFragmentManager().beginTransaction().replace(R.id.actionAdmin, fragment).commit();
         }
-        startActivity(admin);
+        // En portrait se crea una nueva actividad
+        else {
+            Intent admin = new Intent(getActivity().getApplicationContext(), AdminAction.class);
+            switch (view.getId()) {
+                case R.id.optionsAdd:
+                    admin.putExtra("action", "add");
+                    break;
+                case R.id.optionsEdit:
+                    admin.putExtra("action", "edit");
+                    break;
+                case R.id.optionsDelete:
+                    admin.putExtra("action", "delete");
+                    break;
+            }
+            startActivity(admin);
+        }
     }
 
     @Override

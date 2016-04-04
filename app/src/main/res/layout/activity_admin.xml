@@ -6,5 +6,6 @@
     <fragment
         android:id="@+id/optionsAdmin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        class="mx.iteso.msc.rodriguez.roberto.mylibrary.AdminOptions"/>
 </LinearLayout>

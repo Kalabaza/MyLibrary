@@ -8,8 +8,12 @@
         android:layout_height="match_parent"
         android:padding="15dp">
         <TextView
-            android:id="@+id/editTitle"
+            android:id="@+id/deleteTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/book_delete"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40dp"/>
     </LinearLayout>
 </ScrollView>

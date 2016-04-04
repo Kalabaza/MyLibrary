@@ -8,8 +8,8 @@
     <string name="admin_edit">Editar</string>
     <string name="admin_delete">Borrar</string>
     <string name="add_insert">Insertar</string>
-    <!-- Texto para agregar un nuevo libro -->
-    <string name="book_add">Agregar un nuevo libro</string>
+    <!-- Texto para agregar un libro -->
+    <string name="book_add">Agregar un libro</string>
     <string name="book_name">Nombre del Libro</string>
     <string name="book_author">Nombre del Autor</string>
     <string name="book_editorial">Nombre de la Editorial</string>
@@ -18,4 +18,8 @@
     <string name="book_language">Lenguaje del Libro</string>
     <string name="book_message_ok">¡Libro agregado correctamente!</string>
     <string name="book_message_error">No se pudo agregar el libro</string>
+    <!-- Texto para modificar un libro -->
+    <string name="book_edit">Editar un libro</string>
+    <!-- Texto para borrar un libro -->
+    <string name="book_delete">Borrar un libro</string>
 </resources>

@@ -31,12 +31,11 @@ public class AdminAdd extends Fragment implements View.OnClickListener {
     private AutoCompleteTextView author;
     private AutoCompleteTextView editorial;
     private Button insert;
-    private List<String> authors;
-    private List<String> editorials;
+    private List<String> authors = new ArrayList<>();
+    private List<String> editorials = new ArrayList<>();
 
     public static Fragment newInstance() {
-        AdminAdd fragment = new AdminAdd();
-        return fragment;
+        return new AdminAdd();
     }
 
     @Override
@@ -88,8 +87,8 @@ public class AdminAdd extends Fragment implements View.OnClickListener {
         int id = -1;
         SQLiteDatabase db = dh.getReadableDatabase();
         // Revisar si esta el autor en la BD
-        String selectAuthor = "SELECT " + dh.KEY_AUTHOR_ID + " FROM " + dh.TABLE_AUTHOR +
-                              " WHERE " + dh.KEY_AUTHOR_NAME + " = '" + nameAuthor + "'";
+        String selectAuthor = "SELECT " + DataBaseHandler.KEY_AUTHOR_ID + " FROM " + DataBaseHandler.TABLE_AUTHOR +
+                              " WHERE " + DataBaseHandler.KEY_AUTHOR_NAME + " = '" + nameAuthor + "'";
         Cursor cursor = db.rawQuery(selectAuthor, null);
         if(cursor.moveToFirst()) {
             id = cursor.getInt(0);
@@ -100,16 +99,13 @@ public class AdminAdd extends Fragment implements View.OnClickListener {
     private int InsertAuthor(String nameAuthor) {
         SQLiteDatabase db = dh.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(dh.KEY_AUTHOR_NAME, nameAuthor);
-        values.put(dh.KEY_AUTHOR_COUNTRY, "");
-        values.put(dh.KEY_AUTHOR_EXTRA, "");
+        values.put(DataBaseHandler.KEY_AUTHOR_NAME, nameAuthor);
+        values.put(DataBaseHandler.KEY_AUTHOR_COUNTRY, "");
+        values.put(DataBaseHandler.KEY_AUTHOR_EXTRA, "");
         // Insertar a fila
-        long inserted = db.insert(dh.TABLE_AUTHOR, null, values);
+        long inserted = db.insert(DataBaseHandler.TABLE_AUTHOR, null, values);
         // Cerrar la conexión a la BD
-        try {
-            db.close();
-        } catch (Exception e) {
-        }
+        db.close();
         return (int)inserted;
     }
 
@@ -117,8 +113,8 @@ public class AdminAdd extends Fragment implements View.OnClickListener {
         int id = -1;
         SQLiteDatabase db = dh.getReadableDatabase();
         // Revisar si la editorial esta BD
-        String selectEditorial = "SELECT " + dh.KEY_EDITORIAL_ID + " FROM " + dh.TABLE_EDITORIAL +
-                                 " WHERE " + dh.KEY_EDITORIAL_NAME + " = '" + nameEditorial + "'";
+        String selectEditorial = "SELECT " + DataBaseHandler.KEY_EDITORIAL_ID + " FROM " + DataBaseHandler.TABLE_EDITORIAL +
+                                 " WHERE " + DataBaseHandler.KEY_EDITORIAL_NAME + " = '" + nameEditorial + "'";
         Cursor cursor = db.rawQuery(selectEditorial, null);
         if(cursor.moveToFirst()) {
             id = cursor.getInt(0);
@@ -129,34 +125,27 @@ public class AdminAdd extends Fragment implements View.OnClickListener {
     private int InsertEditorial(String nameEditorial) {
         SQLiteDatabase db = dh.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(dh.KEY_EDITORIAL_NAME, nameEditorial);
+        values.put(DataBaseHandler.KEY_EDITORIAL_NAME, nameEditorial);
         // Insertar la fila
-        long inserted = db.insert(dh.TABLE_EDITORIAL, null, values);
+        long inserted = db.insert(DataBaseHandler.TABLE_EDITORIAL, null, values);
         // Cerrar la conexión a la BD
-        try {
-            db.close();
-        } catch (Exception e) {
-        }
+        db.close();
         return (int)inserted;
     }
 
     private int InsertBook(Book book) {
         SQLiteDatabase db = dh.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(dh.KEY_BOOK_NAME, book.getName());
-        values.put(dh.KEY_BOOK_IDAUTHOR, book.getAuthor());
-        values.put(dh.KEY_BOOK_IDEDITORIAL, book.getEditorial());
-        values.put(dh.KEY_BOOK_PUBLISHYEAR, book.getPublishYear());
-        values.put(dh.KEY_BOOK_COUNTRY, book.getCountry());
-        values.put(dh.KEY_BOOK_LANGUAGE, book.getLanguage());
+        values.put(DataBaseHandler.KEY_BOOK_NAME, book.getName());
+        values.put(DataBaseHandler.KEY_BOOK_IDAUTHOR, book.getAuthor());
+        values.put(DataBaseHandler.KEY_BOOK_IDEDITORIAL, book.getEditorial());
+        values.put(DataBaseHandler.KEY_BOOK_PUBLISHYEAR, book.getPublishYear());
+        values.put(DataBaseHandler.KEY_BOOK_COUNTRY, book.getCountry());
+        values.put(DataBaseHandler.KEY_BOOK_LANGUAGE, book.getLanguage());
         // Insertar la fila
-        long inserted = db.insert(dh.TABLE_BOOK, null, values);
+        long inserted = db.insert(DataBaseHandler.TABLE_BOOK, null, values);
         // Cerrar la conexión a la BD
-        try {
-            db.close();
-        }
-        catch (Exception e) {
-        }
+        db.close();
         return (int)inserted;
     }
 
@@ -195,32 +184,29 @@ public class AdminAdd extends Fragment implements View.OnClickListener {
         insert = (Button)view.findViewById(R.id.addBook);
         insert.setOnClickListener(this);
 
-        authors = new ArrayList<String>();
-        editorials = new ArrayList<String>();
-
         SQLiteDatabase db = dh.getReadableDatabase();
         Cursor cursor;
         // Revisar si hay algún autor definido para que este disponible en el campo de auto completado
-        String selectAuthor= "SELECT " + dh.KEY_AUTHOR_NAME + " FROM " + dh.TABLE_AUTHOR + " ORDER BY " + dh.KEY_AUTHOR_NAME;
+        String selectAuthor= "SELECT " + DataBaseHandler.KEY_AUTHOR_NAME + " FROM " + DataBaseHandler.TABLE_AUTHOR + " ORDER BY " + DataBaseHandler.KEY_AUTHOR_NAME;
         cursor = db.rawQuery(selectAuthor, null);
         if(cursor.moveToFirst()) {
             do {
-                authors.add(new String(cursor.getString(0)));
+                authors.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
-        ArrayAdapter<String> authorsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item);
+        ArrayAdapter<String> authorsAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.select_dialog_item);
         authorsAdapter.addAll(authors);
         author.setAdapter(authorsAdapter);
 
         // Revisar si hay alguna editorial definido para que este disponible en el campo de auto completado
-        String selectEditorial = "SELECT " + dh.KEY_EDITORIAL_NAME + " FROM " + dh.TABLE_EDITORIAL + " ORDER BY " + dh.KEY_EDITORIAL_NAME;
+        String selectEditorial = "SELECT " + DataBaseHandler.KEY_EDITORIAL_NAME + " FROM " + DataBaseHandler.TABLE_EDITORIAL + " ORDER BY " + DataBaseHandler.KEY_EDITORIAL_NAME;
         cursor = db.rawQuery(selectEditorial, null);
         if(cursor.moveToFirst()) {
             do {
                 editorials.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
-        ArrayAdapter<String> editorialsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item);
+        ArrayAdapter<String> editorialsAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.select_dialog_item);
         editorialsAdapter.addAll(editorials);
         editorial.setAdapter(editorialsAdapter);
 
